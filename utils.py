@@ -95,4 +95,41 @@ class Db:
 
         return date, number_flights
     
+    def flight_between_cities(self):
+        self.my_curr.execute("""
+        SELECT Source,Destination,COUNT(*) FROM flight
+        GROUP BY Source,Destination
+        ORDER BY COUNT(*) DESC
+        """)
+
+        data = self.my_curr.fetchall()
+        city_set = [item[0]+"-"+item[1] for item in data]
+        number_of_flights = [item[2] for item in data]
+
+        return city_set,number_of_flights
+
+    def flight_fare_between_cities(self):
+        self.my_curr.execute("""
+        SELECT Source,Destination, ROUND(AVG(price),2) FROM flight
+        GROUP BY Source,Destination
+        ORDER BY ROUND(AVG(price),2) DESC
+        """)
+
+        data = self.my_curr.fetchall()
+        city_set = [item[0]+"-"+item[1] for item in data]
+        avg_fare_of_flights = [item[2] for item in data]
+
+        return city_set,avg_fare_of_flights
     
+    def avg_duration_between_cities(self):
+        self.my_curr.execute("""
+        SELECT Source,Destination, ROUND(AVG(Duration),0) FROM flight
+        GROUP BY Source,Destination
+        ORDER BY ROUND(AVG(Duration),0) DESC
+        """)
+
+        data = self.my_curr.fetchall()
+        city_set = [item[0]+"-"+item[1] for item in data]
+        avg_duration_of_flights = [item[2] for item in data]
+
+        return city_set,avg_duration_of_flights

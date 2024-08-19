@@ -34,8 +34,29 @@ def main():
                       title="Number of flights each day")
         st.plotly_chart(fig)
 
-        
+        city_sets , number_of_flights = db.flight_between_cities()
 
+        fig = px.bar(y=city_sets,
+                      x=number_of_flights,
+                      title= "Number of flights between cities",
+                      orientation="h")
+        st.plotly_chart(fig)
+
+        city_sets, avg_fare_of_flights = db.flight_fare_between_cities()
+
+        fig = px.bar(x=city_sets,
+                     y=avg_fare_of_flights,
+                     title="Average fare of flights between two cities")
+        st.plotly_chart(fig)
+
+        city_set,avg_duration_of_flights = db.avg_duration_between_cities()
+
+        fig = px.bar(y=city_set,
+                     x=avg_duration_of_flights,
+                     title="Average duration of flights between two cities",
+                     orientation="h")
+        
+        st.plotly_chart(fig)
 
     elif sidebar_menu == "Srach_Flights":
         st.write("Searching flights")
