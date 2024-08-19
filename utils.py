@@ -2,7 +2,7 @@ from dotenv import load_dotenv
 import pandas as pd
 import mysql.connector
 import os
-
+from datetime import datetime
 # Load environment variables from .env file
 load_dotenv()
 
@@ -39,13 +39,16 @@ class Db:
             cities.append(records[0])
         return cities
 
-    def search_flights(self, source, destination):
+    def search_flights(self, source, destination, journey_date):
         if source == destination:
-            return "No flight exists between same cities"
+            return "No flight exists between the same cities"
         else:
+            # Format the date correctly for SQL
+            formatted_date = journey_date.strftime('%Y-%m-%d')
+
             self.my_curr.execute(f"""
                 SELECT * FROM flight
-                WHERE Source = '{source}' AND Destination = '{destination}'
+                WHERE Source = '{source}' AND Destination = '{destination}' AND Date_of_Journey = '{formatted_date}'
             """)
 
             data = self.my_curr.fetchall()

@@ -73,17 +73,23 @@ def main():
                         orientation="h")
             
             st.plotly_chart(fig)
-
+    
+    # search flight page
     elif sidebar_menu == "Search_Flights":
         st.write("Searching flights")
         col1, col2 = st.columns(2)
         cities = db.fetch_all_cities()
         with col1:
-            source = st.selectbox("Source",sorted(cities), placeholder="choose a city",index=None)
+            source = st.selectbox("Source", sorted(cities), placeholder="Choose a city", index=None)
         with col2:
-            destination = st.selectbox("Destination",sorted(cities), placeholder="choose a city",index=None)
-        if st.button("search flights"):
-            result = db.search_flights(source,destination)
+            destination = st.selectbox("Destination", sorted(cities), placeholder="Choose a city", index=None)
+
+        # Date Input
+        journey_date = st.date_input("Select date", format="YYYY-MM-DD")
+
+        # Search Button
+        if st.button("Search flights"):
+            result = db.search_flights(source, destination, journey_date)
             st.write(result)
 
     else:
