@@ -47,7 +47,7 @@ class Db:
             formatted_date = journey_date.strftime('%Y-%m-%d')
 
             self.my_curr.execute(f"""
-                SELECT * FROM flight
+                SELECT Airline,Date_of_Journey,Source,Destination,Dep_Time AS "Dep_time",Duration,Total_Stops,Price FROM flight
                 WHERE Source = '{source}' AND Destination = '{destination}' AND Date_of_Journey = '{formatted_date}'
             """)
 
@@ -88,8 +88,9 @@ class Db:
     
     def daily_flight_frequency(self):
         self.my_curr.execute("""
-        SELECT Date_of_Journey, count(*) FROM flight
-                    GROUP BY Date_of_Journey
+        SELECT DATE(Date_of_Journey), count(*) FROM flight
+                    GROUP BY DATE(Date_of_Journey)
+                    ORDER BY DATE(Date_of_Journey)
             """)
         
         data = self.my_curr.fetchall()
