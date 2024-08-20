@@ -1,4 +1,4 @@
-# Flight-Dashboard-with-python-and-RDBMS-Mysql-streamlit
+# Flight-Dashboard-with-python-Mysql-streamlit
 
 ## Introduction
 Welcome to the **Flight Analytics Dashboard**! This Streamlit app is designed to provide an insightful and interactive way to explore flight data and trends. Whether you’re a travel enthusiast, a data analyst, or just curious about flight patterns, this dashboard offers a comprehensive overview of various aspects of flight information.
